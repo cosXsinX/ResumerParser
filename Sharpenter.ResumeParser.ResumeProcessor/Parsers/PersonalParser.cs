@@ -20,11 +20,12 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
         {
             var firstNameFound = false;
             var emailFound = false;
-            var phoneFound = false;            
+            var phoneFound = false;
 
+            ExtractFirstAndLastName(resume, firstNameFound);
             foreach (var line in section.Content)
             {                
-                firstNameFound = ExtractFirstAndLastName(resume, firstNameFound);
+                
                 emailFound = ExtractEmail(resume, emailFound, line);
                 phoneFound = ExtractPhone(resume, phoneFound, line);
                 ExtractSocialProfiles(resume, line);
@@ -97,8 +98,7 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
                     sb.Append(" ");
                 }
                 var name = sb.ToString().Trim();
-                var cleanName = name.Replace('_', ' ').Replace('-', ' ')
-                                    .Split(' ')
+                var cleanName = name.Replace('_', ' ').Replace('-', ' ').Split(' ')
                                     .Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
                 if (cleanName.Length >= 3)
