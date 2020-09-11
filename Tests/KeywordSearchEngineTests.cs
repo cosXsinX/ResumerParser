@@ -6,18 +6,18 @@ using Sharpenter.ResumeParser.Model;
 namespace Tests
 {
     [TestFixture]
-    public class ParsingManagerTests
+    public class KeywordSearchEngineTests
     {
         private Regex EmailRegex;
         private Regex PhoneRegex;
-        private ParsingManager _personalParser;
+        private KeywordSearchEngine _personalParser;
 
         [SetUp]
         public void SetUp()
         {
-            EmailRegex = ParsingManager.EmailRegex;
-            PhoneRegex = ParsingManager.PhoneRegex;
-            _personalParser = new ParsingManager();
+            EmailRegex = KeywordSearchEngine.EmailRegex;
+            PhoneRegex = KeywordSearchEngine.PhoneRegex;
+            _personalParser = new KeywordSearchEngine();
         }
 
         [TestCase("eref.fef@gmail.com")]

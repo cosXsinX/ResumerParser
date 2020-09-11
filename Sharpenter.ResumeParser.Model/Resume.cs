@@ -14,12 +14,13 @@ namespace Sharpenter.ResumeParser.Model
         public string PhoneNumbers { get; set; }
         public List<string> SocialProfiles { get; set; }
         public List<string> Skills { get; set; }
-        public string Languages { get; set; }
+        public List<string> Languages { get; set; }
 
         public Resume()
         {
             SocialProfiles = new List<string>();
             Skills = new List<string>();
+            Languages = new List<string>();
         }
     }
 }

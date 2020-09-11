@@ -8,14 +8,16 @@ using System.Text;
 
 namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
 {
-    public class ParsingManager : IParser
+    public class KeywordSearchEngine
     {
         public static readonly Regex EmailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public static readonly Regex PhoneRegex = new Regex(@"(0|\+33|0033|\+33\(0\)|0033\(0\))[1-9][0-9]{8}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public static readonly Regex SocialProfileRegex = new Regex(@"(http(s)?:\/\/)?([\w]+\.)?(linkedin\.com|facebook\.com|github\.com|stackoverflow\.com|bitbucket\.org|sourceforge\.net|(\w+\.)?codeplex\.com|code\.google\.com).*?(?=\s)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public static readonly Regex SplitByWhiteSpaceRegex = new Regex(@"\s+|,", RegexOptions.Compiled);
-        public static readonly HashSet<string> keyWordSet = new HashSet<string> { "BI", "C++", "DOTNET", "JAVA-J2EE", "MOA", "ARCHITECTURE", "BIG DATA", "BUSINESS DEVELOPMENT", "CLOUD", "COBOL", "CRM", "DATA SCIENTIST", "DBA", "DELPHI", "DEVOPS", "EMBARQUE", "ERP", "FRONT JAVA", "FRONT", "FULLSTACK", "FULL STACK", "IAM", "INFRA", "MOBILE", "ORACLE", "PEGA ARCHITECT", "PHP", "PYTHON", "QA", "QA TEST", "RESPONSABLE DOMAINE", "SAP", "SCRUM", "SIEBEL", "SYSTÈMES RÉSEAUX", "TECHNICIENS", "TELECOM", "UX-UI", "JAVA J2EE" };
-        
+        public static readonly HashSet<string> KeyWordSet = new HashSet<string> { "BI", "C++", "DOTNET", "JAVA-J2EE", "MOA", "ARCHITECTURE", "BIG DATA", "BUSINESS DEVELOPMENT", "CLOUD", "COBOL", "CRM", "DATA SCIENTIST", "DBA", "DELPHI", "DEVOPS", "EMBARQUE", "ERP", "FRONT JAVA", "FRONT", "FULLSTACK", "FULL STACK", "IAM", "INFRA", "MOBILE", "ORACLE", "PEGA ARCHITECT", "PHP", "PYTHON", "QA", "QA TEST", "RESPONSABLE DOMAINE", "SAP", "SCRUM", "SIEBEL", "SYSTÈMES RÉSEAUX", "TECHNICIENS", "TELECOM", "UX-UI", "JAVA J2EE" };
+        public static readonly HashSet<string> ProgrammingLanguageSkillSet = new HashSet<string> { };
+        public static readonly HashSet<string> methodologySkillSet = new HashSet<string> { };     
+        public static readonly HashSet<string> toolSkillSet = new HashSet<string> { };
 
         public Resume Parse(IList<string> content, string fileName)
         {
@@ -26,9 +28,9 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
             var phoneFound = false;
 
             ExtractFirstAndLastName(resume, firstNameFound);
+
             foreach (var line in content)
             {                
-                
                 emailFound = ExtractEmail(resume, emailFound, line);
                 phoneFound = ExtractPhone(resume, phoneFound, line);
                 ExtractSocialProfiles(resume, line);
@@ -80,14 +82,14 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
                 foreach (var word in wordArray)
                 {
                     var upperCaseWord = word.ToUpper(); 
-                    if (keyWordSet.Contains(upperCaseWord))
+                    if (KeyWordSet.Contains(upperCaseWord))
                     {
                         resume.KeyWord = upperCaseWord;
                     }
                 }
 
                 // Check if keyword and platform are inversed.
-                if (!keyWordSet.Contains(wordArray[1]))
+                if (!KeyWordSet.Contains(wordArray[1]))
                 {
                     resume.Platform = wordArray[1];
                 }
@@ -132,7 +134,6 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
 
             firstNameFound = true;
             return firstNameFound;
-           
         }
 
         private bool ExtractEmail(Resume resume, bool emailFound, string line)

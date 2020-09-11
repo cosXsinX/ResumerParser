@@ -29,7 +29,7 @@ namespace Sharpenter.ResumeParser.ResumeProcessor
             {
                 var fileName = Path.GetFileName(location);
                 var rawInput = _inputReaders.ReadIntoList(location);
-                var parsingManager = new ParsingManager();
+                var parsingManager = new KeywordSearchEngine();
                 var resume = parsingManager.Parse(rawInput, fileName);
                 return _outputFormatter.Format(resume);
             }
