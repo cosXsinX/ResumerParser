@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Sharpenter.ResumeParser.Model;
-using Sharpenter.ResumeParser.Model.Models;
 
 namespace Sharpenter.ResumeParser.OutputFormatter.Json
 {

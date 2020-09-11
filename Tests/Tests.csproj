@@ -61,9 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseConnectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PersonalParserTests.cs" />
+    <Compile Include="ParsingManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

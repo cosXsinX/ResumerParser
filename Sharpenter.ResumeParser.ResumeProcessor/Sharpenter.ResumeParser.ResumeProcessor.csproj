@@ -41,17 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigFileApplicationSettingsAdapter.cs" />
-    <Compile Include="Helpers\CaseInsensitiveComparer.cs" />
-    <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="InputReaderFactory.cs" />
     <Compile Include="Parsers\IParser.cs" />
-    <Compile Include="Parsers\PersonalParser.cs" />
-    <Compile Include="Parsers\ResumeBuilder.cs" />
-    <Compile Include="Parsers\SkillsParser.cs" />
+    <Compile Include="Parsers\ParsingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResumeProcessor.cs" />
-    <Compile Include="SectionExtractor.cs" />
-    <Compile Include="SectionMatchingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sharpenter.ResumeParser.Model\Sharpenter.ResumeParser.Model.csproj">

@@ -46,13 +46,7 @@
     <Compile Include="IInputReaderFactory.cs" />
     <Compile Include="InputReaderBase.cs" />
     <Compile Include="IOutputFormatter.cs" />
-    <Compile Include="Education.cs" />
-    <Compile Include="Period.cs" />
-    <Compile Include="Position.cs" />
-    <Compile Include="Project.cs" />
     <Compile Include="Resume.cs" />
-    <Compile Include="Section.cs" />
-    <Compile Include="SectionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

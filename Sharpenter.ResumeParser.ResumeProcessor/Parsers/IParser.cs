@@ -1,9 +1,10 @@
 ﻿using Sharpenter.ResumeParser.Model;
+using System.Collections.Generic;
 
 namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
 {
     public interface IParser
     {
-        void Parse(Section section, Resume resume);
+        Resume Parse(IList<string> content, string fineName);
     }
 }

@@ -3,7 +3,6 @@ using System.IO;
 using Sharpenter.ResumeParser.Model;
 using Sharpenter.ResumeParser.Model.Exceptions;
 using Sharpenter.ResumeParser.ResumeProcessor.Parsers;
-using Sharpenter.ResumeParser.ResumeProcessor.Helpers;
 
 namespace Sharpenter.ResumeParser.ResumeProcessor
 {
@@ -30,17 +29,9 @@ namespace Sharpenter.ResumeParser.ResumeProcessor
             {
                 var fileName = Path.GetFileName(location);
                 var rawInput = _inputReaders.ReadIntoList(location);
-
-                var sectionExtractor = new SectionExtractor();
-                var sections = sectionExtractor.ExtractFrom(rawInput);
-
-                var resumeBuilder = new ResumeBuilder();
-
-                var resume = resumeBuilder.Build(sections, fileName);
-
-                var formatted = _outputFormatter.Format(resume);
-
-                return formatted;
+                var parsingManager = new ParsingManager();
+                var resume = parsingManager.Parse(rawInput, fileName);
+                return _outputFormatter.Format(resume);
             }
             catch (IOException ex)
             {

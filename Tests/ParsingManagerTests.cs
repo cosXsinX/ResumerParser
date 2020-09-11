@@ -2,23 +2,22 @@
 using System.Text.RegularExpressions;
 using Sharpenter.ResumeParser.ResumeProcessor.Parsers;
 using Sharpenter.ResumeParser.Model;
-using System.Globalization;
 
 namespace Tests
 {
     [TestFixture]
-    public class PersonalParserTests
+    public class ParsingManagerTests
     {
         private Regex EmailRegex;
         private Regex PhoneRegex;
-        private PersonalParser _personalParser;
+        private ParsingManager _personalParser;
 
         [SetUp]
         public void SetUp()
         {
-            EmailRegex = PersonalParser.EmailRegex;
-            PhoneRegex = PersonalParser.PhoneRegex;
-            _personalParser = new PersonalParser();
+            EmailRegex = ParsingManager.EmailRegex;
+            PhoneRegex = ParsingManager.PhoneRegex;
+            _personalParser = new ParsingManager();
         }
 
         [TestCase("eref.fef@gmail.com")]
