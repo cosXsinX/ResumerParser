@@ -2,12 +2,12 @@
 using System.Text.RegularExpressions;
 using Sharpenter.ResumeParser.ResumeProcessor.Parsers;
 using Sharpenter.ResumeParser.Model;
-using Ganss.Text;
 using System.Linq;
-using System;
 using System.IO;
 using Sharpenter.ResumeParser.ResumeProcessor;
 using Sharpenter.ResumeParser.OutputFormatter.Json;
+using System.Collections.Generic;
+using NReco.Text;
 using System.Collections.Generic;
 
 namespace Tests
@@ -67,36 +67,42 @@ namespace Tests
         }
 
         [Test]
-        public void TestAhoCorasickAlgo()
-        {
-            var keyWordArray = new string[] { "a", "ab", "bab", "bc", "bca", "c", "caa" }; 
-
-            var ac = new AhoCorasick(keyWordArray);
-            var results = ac.Search("abccab").ToList();
-
-            Assert.AreEqual(0, results[0].Index); // index into the searched text
-            Assert.AreEqual("a", results[0].Word); // matched word
-        }
-
-        [Test]
-        public void TestKeyWordSearchEngine()
+        // In order this test to run, you need to create a Resumes folder in test execution directory and put some test resumés.
+        public void TestAhoCorasickDoubleArrayTrieForManyResumes()
         {
             var processor = new ResumeProcessor(new JsonOutputFormatter());
             var filePaths = Directory.GetFiles("Resumes").Select(Path.GetFullPath);
+            var acdat = new AhoCorasickDoubleArrayTrie<string>();
+            var pairs = KeywordSearchEngine.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
+            acdat.Build(pairs, true);
 
             foreach (var filePath in filePaths)
             {
                 var fileName = Path.GetFileName(filePath);
                 var rawInput = processor._inputReaders.ReadIntoList(filePath);
-                var ac = new AhoCorasick(KeywordSearchEngine.ProgrammingLanguageSkillSet);
 
-                var programmingSkills =  new List<string>();
+                var collectedValues = new List<string>();
                 foreach (var line in rawInput)
                 {
-                    programmingSkills.AddRange(ac.Search(line).Select(wm => wm.Word).ToList());
+                    acdat.ParseText(line, hit => { collectedValues.Add(hit.Value); return true; });
                 }
-                Assert.IsNotEmpty(programmingSkills);
+                Assert.IsNotEmpty(collectedValues);
             }
+        }
+
+        [TestCase("MATLAB et C/C++ sous contraintes temps-réel. ")]
+        public void TestAhoCorasickDoubleArrayTrieForSingleLine(string line)
+        {
+            var acdat = new AhoCorasickDoubleArrayTrie<string>();
+            var pairs = KeywordSearchEngine.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
+            acdat.Build(pairs, true);
+            var collectedValues = new List<string>();
+            acdat.ParseText(line, hit => { collectedValues.Add(hit.Value); return true; });
+            Assert.IsNotEmpty(collectedValues);
+            var collectedValuesresult = collectedValues.Where(i => KeywordSearchEngine.ProgrammingLanguageSkillSet.ElementAtOrDefault(int.Parse(i)) == null);
+            Assert.IsEmpty(collectedValuesresult);
+            var keyWord = KeywordSearchEngine.ProgrammingLanguageSkillSet[int.Parse(collectedValues.FirstOrDefault())].Trim();
+            Assert.True(keyWord == "C/C++");
         }
     }
 }
