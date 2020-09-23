@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NReco.Text.AhoCorasickDoubleArrayTrie, Version=1.0.2.0, Culture=neutral, PublicKeyToken=70ca172a68680917, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.Text.AhoCorasickDoubleArrayTrie.1.0.2\lib\net40\NReco.Text.AhoCorasickDoubleArrayTrie.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -51,6 +54,9 @@
       <Project>{48d5db4a-3c27-4b5e-8b42-4cda14aa8386}</Project>
       <Name>Sharpenter.ResumeParser.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

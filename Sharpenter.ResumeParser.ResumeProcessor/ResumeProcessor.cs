@@ -8,8 +8,8 @@ namespace Sharpenter.ResumeParser.ResumeProcessor
 {
     public class ResumeProcessor
     {
-        private readonly IOutputFormatter _outputFormatter;
-        private readonly IInputReader _inputReaders; 
+        public readonly IOutputFormatter _outputFormatter;
+        public readonly IInputReader _inputReaders; 
 
         public ResumeProcessor(IOutputFormatter outputFormatter)
         {

@@ -59,7 +59,12 @@
     <PostBuildEvent>xcopy /Y /R "$(TargetPath)" "$(SolutionDir)Sharpenter.ResumeParser.UI.Console\bin\$(ConfigurationName)\InputReaders"
 xcopy /Y /R "$(TargetDir)Sharpenter.ResumeParser.InputReader.Pdf.pdb" "$(SolutionDir)Sharpenter.ResumeParser.UI.Console\bin\$(ConfigurationName)\InputReaders"
 xcopy /Y /R "$(TargetDir)itextsharp.dll" "$(SolutionDir)Sharpenter.ResumeParser.UI.Console\bin\$(ConfigurationName)"
-xcopy /Y /R "$(TargetDir)itextsharp.xml" "$(SolutionDir)Sharpenter.ResumeParser.UI.Console\bin\$(ConfigurationName)"</PostBuildEvent>
+xcopy /Y /R "$(TargetDir)itextsharp.xml" "$(SolutionDir)Sharpenter.ResumeParser.UI.Console\bin\$(ConfigurationName)"
+
+xcopy /Y /R "$(TargetPath)" "$(SolutionDir)Tests\bin\$(ConfigurationName)\InputReaders"
+xcopy /Y /R "$(TargetDir)Sharpenter.ResumeParser.InputReader.Pdf.pdb" "$(SolutionDir)Tests\bin\$(ConfigurationName)\InputReaders"
+xcopy /Y /R "$(TargetDir)itextsharp.dll" "$(SolutionDir)Tests\bin\$(ConfigurationName)"
+xcopy /Y /R "$(TargetDir)itextsharp.xml" "$(SolutionDir)Tests\bin\$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
