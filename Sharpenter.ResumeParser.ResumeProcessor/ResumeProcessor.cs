@@ -22,7 +22,6 @@ namespace Sharpenter.ResumeParser.ResumeProcessor
             IInputReaderFactory inputReaderFactory = new InputReaderFactory(new ConfigFileApplicationSettingsAdapter());
             _inputReaders = inputReaderFactory.LoadInputReaders();
         }
-
         public string Process(string location)
         {
             try

@@ -14,11 +14,9 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
         public static readonly Regex PhoneRegex = new Regex(@"(0|\+33|0033|\+33\(0\)|0033\(0\))[1-9][0-9]{8}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public static readonly Regex SocialProfileRegex = new Regex(@"(http(s)?:\/\/)?([\w]+\.)?(linkedin\.com|facebook\.com|github\.com|stackoverflow\.com|bitbucket\.org|sourceforge\.net|(\w+\.)?codeplex\.com|code\.google\.com).*?(?=\s)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public static readonly Regex SplitByWhiteSpaceRegex = new Regex(@"\s+|,", RegexOptions.Compiled);
-       
         public static readonly string[] KeyWordSet = new string[] { "BI", "C++", "DOTNET", "JAVA-J2EE", "MOA", "ARCHITECTURE", "BIG DATA", "BUSINESS DEVELOPMENT", "CLOUD", "COBOL", "CRM", "DATA SCIENTIST", "DBA", "DELPHI", "DEVOPS", "EMBARQUE", "ERP", "FRONT JAVA", "FRONT", "FULLSTACK", "FULL STACK", "IAM", "INFRA", "MOBILE", "ORACLE", "PEGA ARCHITECT", "PHP", "PYTHON", "QA", "QA TEST", "RESPONSABLE DOMAINE", "SAP", "SCRUM", "SIEBEL", "SYSTÈMES RÉSEAUX", "TECHNICIENS", "TELECOM", "UX-UI", "JAVA J2EE" };
-        public static readonly string[] ProgrammingLanguageSkillSet = new string[] { "VISUAL BASIC", "VBA", "EXCEL-DNA","EXCELDNA"," JAVA"," .NET"," ASP.NET"," C++"," C/C++"," C#"," HTML"," CSS"," LINUX"," JAVA SCRIPT"," PHP"," BOOTSTRAP"," JSON","XML"," J2EE"," SPRING"," JAVASCRIPT"," NODE.JS"," NODEJS"," PHP"," NUXTS"," VUEJS"," RXJS"," REACTIVE"," QUANTLIB"," QNET"," SWIFT"," REACT  ","PYTHON"," ANGULAR"," WEBAPI"," RESTFFULL"," RESTFFULLAPI"," REST"," API"," WEBFRAMEWORK"," SOAP"," W3C"," HTTP" };
-        //public static readonly string[] methodologySkillSet = new string[] { };     
-        //public static readonly string[] toolSkillSet = new string[] { };
+
+
 
         public Resume Parse(IList<string> content, string fileName)
         {
@@ -34,8 +32,14 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
                 emailFound = ExtractEmail(resume, emailFound, line);
                 phoneFound = ExtractPhone(resume, phoneFound, line);
                 ExtractSocialProfiles(resume, line);
+                ExtractSkills(resume, line);
             }
             return resume;
+        }
+
+        private void ExtractSkills(Resume resume, string line)
+        {
+            
         }
 
         private void ExtractSocialProfiles(Resume resume, string line)
