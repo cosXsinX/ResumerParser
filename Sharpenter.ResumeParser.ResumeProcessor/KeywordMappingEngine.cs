@@ -37,13 +37,9 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
             return resume;
         }
 
-        private void ExtractSkills(SkillSetMapper mapper,Resume resume, string line)
+        private void ExtractSkills(SkillSetMapper mapper, Resume resume, string line)
         {
-            mapper.GetProgrammingLanguageSkillSet(resume, line);
-            mapper.GetOperationSyttemAndServerSkillSet(resume, line);
-            mapper.GetMethodologySkillSet(resume, line);
-            mapper.GetDatabaseSkillSet(resume, line);
-            mapper.GetToolSkillSet(resume, line);
+            mapper.GetSkillSet(resume, line);
         }
 
         private void ExtractSocialProfiles(Resume resume, string line)

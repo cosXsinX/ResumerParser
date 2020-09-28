@@ -27,7 +27,7 @@ namespace Tests
             var processor = new ResumeProcessor(new JsonOutputFormatter());
             var filePaths = Directory.GetFiles("Resumes").Select(Path.GetFullPath);
             var acdat = new AhoCorasickDoubleArrayTrie<string>();
-            var pairs = SkillSetMapper.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
+            var pairs = SkillSetMapper.SkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
             acdat.Build(pairs, true);
 
             foreach (var filePath in filePaths)
@@ -48,37 +48,15 @@ namespace Tests
         public void TestAhoCorasickDoubleArrayTrieForSingleLine(string line)
         {
             var acdat = new AhoCorasickDoubleArrayTrie<string>();
-            var pairs = SkillSetMapper.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
+            var pairs = SkillSetMapper.SkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
             acdat.Build(pairs, true);
             var collectedValues = new List<string>();
             acdat.ParseText(line, hit => { collectedValues.Add(hit.Value); return true; });
             Assert.IsNotEmpty(collectedValues);
-            var collectedValuesresult = collectedValues.Where(i => SkillSetMapper.ProgrammingLanguageSkillSet.ElementAtOrDefault(int.Parse(i)) == null);
+            var collectedValuesresult = collectedValues.Where(i => SkillSetMapper.SkillSet.ElementAtOrDefault(int.Parse(i)) == null);
             Assert.IsEmpty(collectedValuesresult);
-            var keyWord = SkillSetMapper.ProgrammingLanguageSkillSet[int.Parse(collectedValues.FirstOrDefault())].Trim();
-            Assert.True(keyWord == "C/C++");
-        }
-
-        [Test]
-        public void TestProgrammingAndToolSetSkillMatcher()
-        {
-            var processor = new ResumeProcessor(new JsonOutputFormatter());
-            var filePaths = Directory.GetFiles("Resumes").Select(Path.GetFullPath);
-
-            foreach (var filePath in filePaths)
-            {
-                var resume = new Resume();
-                var fileName = Path.GetFileName(filePath);
-                var rawInput = processor._inputReaders.ReadIntoList(filePath);
-
-                foreach (var line in rawInput)
-                {
-                    _matcher.GetProgrammingLanguageSkillSet(resume, line);
-                    _matcher.GetToolSkillSet(resume, line);
-                }
-                Assert.IsNotEmpty(resume.Skills.ProgrammingLanguageSkills);
-                Assert.IsNotEmpty(resume.Skills.ToolSkillSet);
-            }
+            var keyWord = SkillSetMapper.SkillSet[int.Parse(collectedValues.FirstOrDefault())].Trim();
+            Assert.True(keyWord == "C/C++"); 
         }
     }
 }
