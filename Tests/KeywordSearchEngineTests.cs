@@ -10,14 +10,14 @@ namespace Tests
     {
         private Regex EmailRegex;
         private Regex PhoneRegex;
-        private KeywordSearchEngine _personalParser;
+        private KeywordMappingEngine _personalParser;
 
         [SetUp]
         public void SetUp()
         {
-            EmailRegex = KeywordSearchEngine.EmailRegex;
-            PhoneRegex = KeywordSearchEngine.PhoneRegex;
-            _personalParser = new KeywordSearchEngine();
+            EmailRegex = KeywordMappingEngine.EmailRegex;
+            PhoneRegex = KeywordMappingEngine.PhoneRegex;
+            _personalParser = new KeywordMappingEngine();
         }
 
         [TestCase("eref.fef@gmail.com")]

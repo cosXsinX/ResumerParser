@@ -12,12 +12,12 @@ namespace Tests
     [TestFixture]
     public class SkillSetMatcherTests
     {
-        private SkillSetMatcher _matcher;
+        private SkillSetMapper _matcher;
 
         [SetUp]
         public void SetUp()
         {
-            _matcher = new SkillSetMatcher();
+            _matcher = new SkillSetMapper();
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Tests
             var processor = new ResumeProcessor(new JsonOutputFormatter());
             var filePaths = Directory.GetFiles("Resumes").Select(Path.GetFullPath);
             var acdat = new AhoCorasickDoubleArrayTrie<string>();
-            var pairs = SkillSetMatcher.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
+            var pairs = SkillSetMapper.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
             acdat.Build(pairs, true);
 
             foreach (var filePath in filePaths)
@@ -48,14 +48,14 @@ namespace Tests
         public void TestAhoCorasickDoubleArrayTrieForSingleLine(string line)
         {
             var acdat = new AhoCorasickDoubleArrayTrie<string>();
-            var pairs = SkillSetMatcher.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
+            var pairs = SkillSetMapper.ProgrammingLanguageSkillSet.Select((k, i) => new KeyValuePair<string, string>(k, i.ToString()));
             acdat.Build(pairs, true);
             var collectedValues = new List<string>();
             acdat.ParseText(line, hit => { collectedValues.Add(hit.Value); return true; });
             Assert.IsNotEmpty(collectedValues);
-            var collectedValuesresult = collectedValues.Where(i => SkillSetMatcher.ProgrammingLanguageSkillSet.ElementAtOrDefault(int.Parse(i)) == null);
+            var collectedValuesresult = collectedValues.Where(i => SkillSetMapper.ProgrammingLanguageSkillSet.ElementAtOrDefault(int.Parse(i)) == null);
             Assert.IsEmpty(collectedValuesresult);
-            var keyWord = SkillSetMatcher.ProgrammingLanguageSkillSet[int.Parse(collectedValues.FirstOrDefault())].Trim();
+            var keyWord = SkillSetMapper.ProgrammingLanguageSkillSet[int.Parse(collectedValues.FirstOrDefault())].Trim();
             Assert.True(keyWord == "C/C++");
         }
 

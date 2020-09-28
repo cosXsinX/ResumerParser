@@ -5,7 +5,7 @@ using Sharpenter.ResumeParser.Model;
 
 namespace Sharpenter.ResumeParser.ResumeProcessor
 {
-    public class SkillSetMatcher
+    public class SkillSetMapper
     {
         public static readonly string[] ProgrammingLanguageSkillSet = new string[] { "VISUAL BASIC", "VBA", "EXCEL-DNA", "EXCELDNA", " JAVA", " .NET", " ASP.NET", " C++", " C/C++", " C#", " HTML", " CSS", " LINUX", " JAVA SCRIPT", " PHP", " BOOTSTRAP", " JSON", "XML", " J2EE", " SPRING", " JAVASCRIPT", " NODE.JS", " NODEJS", " PHP", " NUXTS", " VUEJS", " RXJS", " REACTIVE", " QUANTLIB", " QNET", " SWIFT", " REACT  ", "PYTHON", " ANGULAR", " WEBAPI", " RESTFFULL", " RESTFFULLAPI", " REST", " API", " WEBFRAMEWORK", " SOAP", " W3C", " HTTP" };
         public static readonly string[] ToolSkillSet = new string[] { "MATLAB","GIT","JENKINS","DEVOPS","JIRA","PACK OFFICE","OFFICE","ORIGIN","UML","ANDROID STUDIO","VISUAL STUDIO","VS CODE","VISUAL STUDIO CODE","SAS","WORD","EXCEL","POWERPOINT","POWER POINT","VISIO","MS PROJECT","MSPROJECT","SONAR","SELINIUM","AIX","GOOGLE ANALYTICS","WORDPRESS","SYMPHONY","ELASTICSEARCH","NUXTJS","VUSAX","BULMA","ELEMENT","KIBANA","SONARCUBE","DOCKER" };
@@ -21,7 +21,7 @@ namespace Sharpenter.ResumeParser.ResumeProcessor
         private AhoCorasickDoubleArrayTrie<string> _operationSyttemAndServerSkillSet;
         private AhoCorasickDoubleArrayTrie<string> _databaseSkillSet;
 
-        public SkillSetMatcher()
+        public SkillSetMapper()
         {
             _programmingLanguageSkillMatcher = new AhoCorasickDoubleArrayTrie<string>();
             _toolSkillMatcher = new AhoCorasickDoubleArrayTrie<string>();

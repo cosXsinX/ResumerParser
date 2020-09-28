@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
 {
-    public class KeywordSearchEngine
+    public class KeywordMappingEngine
     {
         public static readonly Regex EmailRegex = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public static readonly Regex PhoneRegex = new Regex(@"(0|\+33|0033|\+33\(0\)|0033\(0\))[1-9][0-9]{8}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -17,13 +17,13 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
         public static readonly string[] KeyWordSet = new string[] { "BI", "C++", "DOTNET", "JAVA-J2EE", "MOA", "ARCHITECTURE", "BIG DATA", "BUSINESS DEVELOPMENT", "CLOUD", "COBOL", "CRM", "DATA SCIENTIST", "DBA", "DELPHI", "DEVOPS", "EMBARQUE", "ERP", "FRONT JAVA", "FRONT", "FULLSTACK", "FULL STACK", "IAM", "INFRA", "MOBILE", "ORACLE", "PEGA ARCHITECT", "PHP", "PYTHON", "QA", "QA TEST", "RESPONSABLE DOMAINE", "SAP", "SCRUM", "SIEBEL", "SYSTÈMES RÉSEAUX", "TECHNICIENS", "TELECOM", "UX-UI", "JAVA J2EE" };
 
 
-
         public Resume Parse(IList<string> content, string fileName)
         {
             var resume = new Resume { FileName = fileName };
             var firstNameFound = false;
             var emailFound = false;
             var phoneFound = false;
+            var mapper = new SkillSetMapper();
 
             ExtractFirstAndLastName(resume, firstNameFound);
 
@@ -32,14 +32,18 @@ namespace Sharpenter.ResumeParser.ResumeProcessor.Parsers
                 emailFound = ExtractEmail(resume, emailFound, line);
                 phoneFound = ExtractPhone(resume, phoneFound, line);
                 ExtractSocialProfiles(resume, line);
-                ExtractSkills(resume, line);
+                ExtractSkills(mapper, resume, line);
             }
             return resume;
         }
 
-        private void ExtractSkills(Resume resume, string line)
+        private void ExtractSkills(SkillSetMapper mapper,Resume resume, string line)
         {
-            
+            mapper.GetProgrammingLanguageSkillSet(resume, line);
+            mapper.GetOperationSyttemAndServerSkillSet(resume, line);
+            mapper.GetMethodologySkillSet(resume, line);
+            mapper.GetDatabaseSkillSet(resume, line);
+            mapper.GetToolSkillSet(resume, line);
         }
 
         private void ExtractSocialProfiles(Resume resume, string line)

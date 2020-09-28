@@ -45,8 +45,8 @@
   <ItemGroup>
     <Compile Include="ConfigFileApplicationSettingsAdapter.cs" />
     <Compile Include="InputReaderFactory.cs" />
-    <Compile Include="KeywordSearchEngine.cs" />
-    <Compile Include="SkillSetMatcher.cs" />
+    <Compile Include="KeywordMappingEngine.cs" />
+    <Compile Include="SkillSetMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResumeProcessor.cs" />
   </ItemGroup>
