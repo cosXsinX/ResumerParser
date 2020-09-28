@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using NReco.Text;
 using NUnit.Framework;
-using Sharpenter.ResumeParser.Model;
 using Sharpenter.ResumeParser.OutputFormatter.Json;
 using Sharpenter.ResumeParser.ResumeProcessor;
 
@@ -12,16 +11,9 @@ namespace Tests
     [TestFixture]
     public class SkillSetMatcherTests
     {
-        private SkillSetMapper _matcher;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _matcher = new SkillSetMapper();
-        }
-
         [Test]
         // In order this test to run, you need to create a Resumes folder in test execution directory and put some test resumés.
+        // Only technical skill matching is set up, to test with technical profiles.
         public void TestAhoCorasickDoubleArrayTrieForManyResumes()
         {
             var processor = new ResumeProcessor(new JsonOutputFormatter());
@@ -40,7 +32,7 @@ namespace Tests
                 {
                     acdat.ParseText(line, hit => { collectedValues.Add(hit.Value); return true; });
                 }
-                Assert.IsNotEmpty(collectedValues);
+                Assert.IsNotEmpty(collectedValues, $"No match found in file: {filePath}");
             }
         }
 
@@ -56,7 +48,7 @@ namespace Tests
             var collectedValuesresult = collectedValues.Where(i => SkillSetMapper.SkillSet.ElementAtOrDefault(int.Parse(i)) == null);
             Assert.IsEmpty(collectedValuesresult);
             var keyWord = SkillSetMapper.SkillSet[int.Parse(collectedValues.FirstOrDefault())].Trim();
-            Assert.True(keyWord == "C/C++"); 
+            Assert.True(keyWord == "MATLAB"); 
         }
     }
 }
